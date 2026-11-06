@@ -1,0 +1,105 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hku-cds-assignment}[2026/11/06 Simple HKU CDS coursework style]
+
+% Independent article-based layout, visually inspired by the reference thesis.
+\RequirePackage[T1]{fontenc}
+\RequirePackage{libertine}
+\RequirePackage[a4paper,margin=25mm,headheight=15pt]{geometry}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{graphicx}
+\RequirePackage{booktabs,tabularx}
+\RequirePackage{xcolor}
+\RequirePackage{enumitem}
+\RequirePackage{listings}
+\RequirePackage{caption}
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+\RequirePackage{microtype}
+\RequirePackage[hidelinks]{hyperref}
+
+\definecolor{CDSInk}{HTML}{223C39}
+\definecolor{CodeBackground}{HTML}{F5F6F6}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\linespread{1.15}
+\setlist{nosep,topsep=4pt}
+\captionsetup{font=small,labelfont=bf,labelsep=period}
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries\color{CDSInk},
+  commentstyle=\itshape\color{gray},
+  stringstyle=\color{CDSInk},
+  backgroundcolor=\color{CodeBackground},
+  frame=single,rulecolor=\color{black!15},
+  framerule=0.4pt,framesep=6pt,
+  breaklines=true,columns=fullflexible,
+  keepspaces=true,showstringspaces=false,tabsize=4,
+  captionpos=b,aboveskip=10pt,belowskip=8pt
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\CourseCode\enspace /\enspace\AssignmentName}
+\fancyhead[R]{\small\StudentID}
+\fancyfoot[C]{\small\thepage\ /\ \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\question}[1]{\section{#1}}
+\renewcommand{\thesection}{Question \arabic{section}}
+
+\newif\ifcoverpage
+\coverpagetrue
+\newcommand{\makeassignmenttitle}{%
+  \hypersetup{pdftitle={\CourseCode: \AssignmentName},pdfauthor={\StudentName}}%
+  \ifcoverpage
+    \hypersetup{pageanchor=false}%
+    \begin{titlepage}
+      \centering
+      \setlength{\parskip}{0pt}%
+      \vspace*{12mm}
+      \IfFileExists{assets/HKUcolour.pdf}{%
+        \includegraphics[width=22mm]{assets/HKUcolour.pdf}\par\vspace{7mm}%
+      }{}
+      {\large\scshape The University of Hong Kong\par}
+      \vspace{2mm}
+      {\normalsize\scshape School of Computing and Data Science\par}
+      \vspace{17mm}
+      {\color{black!35}\hrule height 0.4pt}
+      \vspace{4mm}
+      {\LARGE\bfseries\CourseCode\enspace\CourseName\par}
+      \vspace{4mm}
+      {\color{black!35}\hrule height 0.4pt}
+      \vspace{9mm}
+      {\Large\itshape\AssignmentName: \AssignmentTitle\par}
+      \vfill
+      {\small\bfseries Author\par}
+      \vspace{1mm}
+      {\small\StudentName\ (\StudentID)\par}
+      \vspace{9mm}
+      {\small\bfseries Date\par}
+      \vspace{1mm}
+      {\small\SubmissionDate\par}
+      \vspace*{26mm}
+    \end{titlepage}
+    \pagenumbering{arabic}%
+    \hypersetup{pageanchor=true}%
+  \else
+    \begingroup
+    \setlength{\parskip}{0pt}%
+    \begin{center}
+      {\large The University of Hong Kong\par}
+      {\normalsize School of Computing and Data Science\par}
+      \vspace{5mm}
+      {\LARGE\bfseries\AssignmentTitle\par}
+      \vspace{2mm}
+      {\large\AssignmentName\par}
+      \vspace{3mm}
+      {\small\CourseCode\ --- \CourseName\par
+       \StudentName\quad /\quad\StudentID\par
+       Submitted: \SubmissionDate\par}
+    \end{center}
+    \endgroup
+    \vspace{3mm}\hrule\vspace{5mm}
+  \fi
+}

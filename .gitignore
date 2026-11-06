@@ -1,0 +1,13 @@
+# LaTeX build intermediates (keep main.pdf as the compiled example)
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.bbl
+*.blg

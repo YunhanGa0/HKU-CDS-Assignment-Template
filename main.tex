@@ -1,0 +1,115 @@
+% Overleaf: select pdfLaTeX, then Recompile.
+% For Chinese text: select XeLaTeX and uncomment the ctex line below.
+\documentclass[a4paper,11pt]{article}
+% \usepackage[UTF8,scheme=plain]{ctex}
+\usepackage{hku-cds-assignment}
+
+% ---------- Edit your assignment details here ----------
+\newcommand{\CourseCode}{COMPXXXX}
+\newcommand{\CourseName}{Course Name}
+\newcommand{\AssignmentName}{Assignment 1}
+\newcommand{\AssignmentTitle}{Assignment Title}
+\newcommand{\StudentName}{Your Name}
+\newcommand{\StudentID}{303XXXXXXXX}
+\newcommand{\SubmissionDate}{6 November 2026}
+
+\coverpagetrue % Change to \coverpagefalse for a compact first-page heading.
+
+\begin{document}
+\makeassignmenttitle
+
+% Replace all example answers below with your own work.
+\question{Mathematical analysis}
+\subsection*{(a) Problem formulation}
+Define the task, assumptions and notation before presenting the solution.
+For example, let $X\in\mathbb{R}^{n\times d}$ be a design matrix and
+$\mathbf{y}\in\mathbb{R}^{n}$ the response vector. Consider the ridge
+regression objective
+\begin{equation}
+  \mathcal{L}(\mathbf{w}) = \frac{1}{n}\norm{X\mathbf{w}-\mathbf{y}}_2^2
+  + \lambda\norm{\mathbf{w}}_2^2, \qquad \lambda>0.
+  \label{eq:objective}
+\end{equation}
+
+\subsection*{(b) Solution}
+Differentiating Equation~\eqref{eq:objective} and setting the gradient to
+zero gives
+\begin{align}
+  \nabla_{\mathbf{w}}\mathcal{L}
+    &= \frac{2}{n}X^{\mathsf T}(X\mathbf{w}-\mathbf{y})+2\lambda\mathbf{w},\\
+  \widehat{\mathbf{w}}
+    &= (X^{\mathsf T}X+n\lambda I_d)^{-1}X^{\mathsf T}\mathbf{y}.
+\end{align}
+The positive regularization parameter makes the system matrix positive
+definite. In code, solve the linear system directly rather than explicitly
+computing its inverse.
+
+\question{Implementation and results}
+\subsection*{(a) Method}
+Describe the data, preprocessing, evaluation metric and experimental setup.
+Use a fixed seed where appropriate, and fit preprocessing steps on training
+data only. Keep enough detail for the experiment to be reproduced.
+
+\begin{lstlisting}[language=Python,float=htbp,caption={A minimal ridge regression implementation.},label={lst:ridge}]
+import numpy as np
+
+def fit_ridge(X, y, lam=0.1):
+    n, d = X.shape
+    A = X.T @ X + n * lam * np.eye(d)
+    return np.linalg.solve(A, X.T @ y)
+\end{lstlisting}
+
+\ifcoverpage\clearpage\fi % Optional page break in the cover-page version.
+\subsection*{(b) Results and discussion}
+Table~\ref{tab:results} illustrates a simple results table. The values are
+fictional examples; replace them with measured results and explain the
+observed differences.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Illustrative results only (lower RMSE is better).}
+  \label{tab:results}
+  \begin{tabular}{lrr}
+    \toprule
+    Method & Validation RMSE & Test RMSE \\
+    \midrule
+    Mean baseline & 1.24 & 1.28 \\
+    Ridge regression & 0.87 & 0.91 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{(c) Figures}
+Replace the box below with your own figure. For example:
+\begin{quote}
+\small\verb|\includegraphics[width=.75\linewidth]{your-figure.pdf}|
+\end{quote}
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][30mm][c]{0.72\linewidth}{\centering
+    Your figure here\\[4pt]
+    \small Plot, diagram, or experimental output}}
+  \caption{Replace this placeholder and caption with your own figure.}
+  \label{fig:example}
+\end{figure}
+
+\question{Conclusion}
+Summarize the main finding, explain one limitation, and relate the result to
+the question. Cite external sources when appropriate, for example the
+reference repository used for the visual inspiration of this template~\cite{template}.
+
+% For a short assignment, thebibliography avoids a separate BibTeX step.
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{template}
+Guanying Chen.
+\emph{HKU-PhD-Thesis-LaTex}.
+\url{https://github.com/guanyingc/HKU-PhD-Thesis-LaTex}.
+\end{thebibliography}
+
+% Optional appendix:
+% \appendix
+% \section{Additional details}
+
+\end{document}
