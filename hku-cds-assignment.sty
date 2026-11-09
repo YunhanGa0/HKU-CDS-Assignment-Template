@@ -88,8 +88,14 @@
     \begingroup
     \setlength{\parskip}{0pt}%
     \begin{center}
-      {\large The University of Hong Kong\par}
-      {\normalsize School of Computing and Data Science\par}
+      \IfFileExists{assets/HKUcolour.pdf}{%
+        \raisebox{-0.5\height}{\includegraphics[height=11mm]{assets/HKUcolour.pdf}}%
+        \hspace{3mm}%
+      }{}%
+      \raisebox{-0.5\height}{%
+        \shortstack[c]{\large The University of Hong Kong\\[2pt]
+                       \normalsize School of Computing and Data Science}}%
+      \par
       \vspace{5mm}
       {\LARGE\bfseries\AssignmentTitle\par}
       \vspace{2mm}
